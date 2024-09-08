@@ -1,0 +1,13 @@
+- name: play1
+  hosts: localhost
+  gather_facts: false
+  vars:
+    - var1: "test"
+  vars_files:
+    - secrets.yml
+  tasks:
+    - name: "Print variables"
+      debug:
+        msg:
+          - "{{ item }}: {{ query('vars', item)|first }}"
+      loop: "{{ query('varnames', '^vaul.+$') }}" 
