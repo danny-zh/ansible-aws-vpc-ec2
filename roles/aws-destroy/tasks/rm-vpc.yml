@@ -1,0 +1,36 @@
+# Destroy vpc resources
+
+- name: Remove a VPC Subnet
+  amazon.aws.ec2_vpc_subnet:
+    state: absent
+    vpc_id: "{{ aws_vpc_info.vpcs.0.id }}"
+    cidr: "{{ aws_subnet_cidr_block }}"
+
+- name: Gather route tables in VPC
+  amazon.aws.ec2_vpc_route_table_info:
+    filters:
+      vpc-id: "{{ aws_vpc_info.vpcs.0.id }}"
+      #association.main: false
+  register: vpc_route_tables
+    
+- name: Remove all non-main route tables
+  amazon.aws.ec2_vpc_route_table:
+    vpc_id: "{{ aws_vpc_info.vpcs.0.id }}"
+    lookup: id
+    route_table_id: "{{ item.route_table_id }}"
+    state: absent
+  loop: "{{ vpc_route_tables.route_tables }}"
+  loop_control: 
+    label: "{{ item.route_table_id }}"
+  when: item.associations is undefined or item.associations.main is false
+
+- name: Remove a VPC Internet Gateway
+  amazon.aws.ec2_vpc_igw:
+    vpc_id: "{{ aws_vpc_info.vpcs.0.id }}"
+    state: absent
+
+- name: Remove a VPC
+  amazon.aws.ec2_vpc_net:
+    name: "{{ aws_vpc_name }}"
+    cidr_block: "{{ aws_vpc_cidr_block }}"
+    state: absent

@@ -1,0 +1,16 @@
+# Destroy SG resources
+- name: Gather EC2 SG Info
+  amazon.aws.ec2_group_info:
+    filters:
+      vpc-id: "{{ aws_vpc_info.vpcs.0.id }}"
+  register: aws_ec2_sg_info
+
+- name: Exclude Ec2 Default SG
+  set_fact:
+    aws_ec2_sg_list: "{{ aws_ec2_sg_info.security_groups | selectattr('group_name', 'match', 'default-.*') }}"
+
+- name: Remove an EC2 SG
+  ec2_group:
+    group_id: "{{ item.group_id }}"
+    state: absent
+  loop: "{{ aws_ec2_sg_list }}"

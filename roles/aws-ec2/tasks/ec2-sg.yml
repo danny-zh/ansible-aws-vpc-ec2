@@ -1,0 +1,8 @@
+- name: Create an EC2 Security Group
+  amazon.aws.ec2_group:
+    name: "{{ aws_ec2_sg_default_name }}"
+    description: "{{ aws_ec2_sg_default_description }}"
+    vpc_id: "{{ aws_vpc_info.vpc.id }}"
+    rules: "{{ aws_ec2_sg_default_rules }}"
+    tags: "{{ aws_tags_default | combine ( aws_ec2_sg_default_tags ) }}"
+    state: present

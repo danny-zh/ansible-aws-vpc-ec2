@@ -1,0 +1,5 @@
+#Dynamic Inventory
+plugin: amazon.aws.aws_ec2
+aws_profile: sv-aws-ansible
+regions: 
+  - us-east-1

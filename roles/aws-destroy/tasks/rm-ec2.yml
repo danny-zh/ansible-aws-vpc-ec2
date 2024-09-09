@@ -1,0 +1,17 @@
+# Destroy EC2 resources
+
+- name: Gather EC2 Instance Info
+  amazon.aws.ec2_instance_info:
+    filters:
+      "tag:Name": "{{ aws_ec2_tags.Name }}"
+      instance-state-name: [ "running"]
+  register: aws_ec2_instance_info
+
+- name: Terminate EC2 Instance
+  amazon.aws.ec2_instance:
+    state: absent
+    instance_ids: "{{ item.instance_id }}"
+    wait: yes
+  loop: "{{ aws_ec2_instance_info.instances }}"
+  loop_control:
+    label: "{{ item.instance_id }}"

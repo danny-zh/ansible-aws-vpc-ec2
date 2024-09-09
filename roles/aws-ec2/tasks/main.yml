@@ -1,41 +1,10 @@
 ---
-#tasks file for aws-ec2
-- name: Create an EC2 Key Pair
-  amazon.aws.ec2_key:
-    name: "{{ aws_ec2_key_name }}"
-    key_type: ed25519
-    file_name: "{{ aws_key_path }}"
-    state: present
-
-- name: Find AMIs
-  amazon.aws.ec2_ami_info:
-    filters: "{{ aws_ec2_ami_filter }}"
-  register: ec2_ami_info
-
-- name: Get Latest AMI and set Facts
-  ansible.builtin.set_fact:
-    ec2_ami_latest: "{{ ec2_ami_info.images | sort (attribute='creation_date') | last }}"
-
-- name: Create an EC2 Security Group
-  amazon.aws.ec2_group:
-    name: "{{ aws_ec2_sg_default_name }}"
-    description: "{{ aws_ec2_sg_default_description }}"
-    vpc_id: "{{ aws_vpc_info.vpc.id }}"
-    rules: "{{ aws_ec2_sg_default_rules }}"
-    tags: "{{ aws_tags_default | combine ( aws_ec2_sg_default_tags ) }}"
-    state: present
-
-- name: Create EC2 instances
-  amazon.aws.ec2_instance:
-    key_name: "{{ aws_ec2_key_name }}"
-    security_group: "{{ aws_ec2_sg_default_name }}"
-    instance_type: "{{ aws_ec2_instance_type }}"
-    image_id: "{{ ec2_ami_latest.image_id }}"
-    count: "{{ aws_ec2_instance_count }}"
-    wait: "{{ aws_ec2_instance_wait }}"
-    wait_timeout: "{{ aws_ec2_instance_wait_timeout }}"
-    volumes: "{{ aws_ec2_instance_volumes }}"
-    vpc_subnet_id: "{{ vpc_subnet_info.subnet.id }}"
-    network:
-      assign_public_ip: "{{ aws_ec2_instance_public_ip }}"
-    tags: "{{ aws_tags_default | combine( aws_ec2_tags )}}"
+# Main task file for provisioning an ec2
+- name: Provision EC2
+  include_tasks: "{{ item }}"
+  loop:
+    - ec2-ami.yml
+    - ec2-key.yml
+    - ec2-sg.yml
+    - ec2-instace.yml
+  when: aws_workshop_destroy is false

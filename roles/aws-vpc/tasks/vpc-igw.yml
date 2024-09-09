@@ -22,10 +22,6 @@
   ansible.builtin.debug:
     msg: "{{ vpc_route_table }}"
 
-- name: print
-  debug:
-    msg: "{{ vpc_route_table.route_tables.0.route_table_id }}"
-
 - name: Add default route to internet gateway
   amazon.aws.ec2_vpc_route_table:
     vpc_id: "{{ aws_vpc_info.vpc.id }}"
