@@ -1,2 +1,5 @@
 .vault*
 vault_secrets.yml
+credentials
+*.bak
+*.priv

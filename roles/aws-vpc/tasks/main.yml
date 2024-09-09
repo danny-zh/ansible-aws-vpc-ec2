@@ -1,0 +1,10 @@
+---
+# Main task for provisioning a VPC
+
+- name: "Create env"
+  include_tasks:  "{{ item }}"
+  loop:
+    - vpc-net.yml
+    - vpc-subnet.yml
+    - vpc-igw.yml
+  when: aws_workshop_destroy is false

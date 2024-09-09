@@ -1,0 +1,36 @@
+
+- name: Create a VPC Internet Gateway
+  amazon.aws.ec2_vpc_igw:
+    vpc_id: "{{ aws_vpc_info.vpc.id }}"
+    state: present
+    tags: "{{ aws_tags_default | combine( aws_vpc_igw_tags ) }}"
+  register: igw_info
+  
+- name: "Display igw info"
+  debug:
+    msg: "{{ igw_info }}"
+
+# Add default route 0.0.0.0/0 to point to the igw
+- name: Find the main route table of VPC
+  amazon.aws.ec2_vpc_route_table_info:
+    filters:
+      vpc-id: "{{ aws_vpc_info.vpc.id }}"
+      association.main: true
+  register: vpc_route_table
+
+- name: Display main route table of VPC
+  ansible.builtin.debug:
+    msg: "{{ vpc_route_table }}"
+
+- name: print
+  debug:
+    msg: "{{ vpc_route_table.route_tables.0.route_table_id }}"
+
+- name: Add default route to internet gateway
+  amazon.aws.ec2_vpc_route_table:
+    vpc_id: "{{ aws_vpc_info.vpc.id }}"
+    lookup: id #important to add the lookup field so a new route table is not created
+    route_table_id: "{{ vpc_route_table.route_tables.0.id }}"
+    routes:
+      - dest: "0.0.0.0/0"
+        gateway_id: "{{ igw_info.gateway_id }}"

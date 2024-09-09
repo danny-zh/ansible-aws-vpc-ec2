@@ -1,0 +1,18 @@
+aws_ec2_sg_default_name: "default-ansible-workshop"
+aws_ec2_sg_default_description: "Ansible Workshop Default SG"
+aws_ec2_sg_default_tags:
+  Name: "sg-default-ansible-workshop"
+aws_ec2_sg_default_rules:
+  - proto: "tcp"
+    ports:
+      - 22
+    cidr_ip:
+      - 0.0.0.0/0
+    rule_desc: "Allow SSH Connetions"
+  - proto: "tcp"
+    ports:
+      - 80
+      - 443
+    cidr_ip:
+      - 10.0.1.0/24
+    rule_desc: "Allow HTTP, HTTPS Connetions"

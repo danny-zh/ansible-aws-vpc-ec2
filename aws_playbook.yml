@@ -1,0 +1,18 @@
+- name: "Playbook for managing aws ec2 instances"
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  become: no
+
+  environment:
+    AWS_PROFILE: "{{ aws_profile }}"
+    AWS_REGION: "{{ aws_region }}"
+
+  roles:
+    - role: aws-vpc
+      tags: vpc, never
+    - role: aws-ec2
+      tags: ec2, never
+    - role: aws-destroy
+      tags: destroy, never
+      #when: aws_workshop_destroy is true

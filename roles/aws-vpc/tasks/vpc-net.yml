@@ -1,0 +1,12 @@
+- name: "Create a VPC resource"
+  amazon.aws.ec2_vpc_net:
+      name: "{{ aws_vpc_name }}"
+      region: "{{ aws_region }}"
+      cidr_block: "{{ aws_vpc_cidr_block }}"
+      state: present
+      tags: "{{ aws_tags_default }}"
+  register: aws_vpc_info
+
+- name: "Display vpc info"
+  debug:
+    msg: "{{ aws_vpc_info }}"

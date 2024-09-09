@@ -4,10 +4,10 @@
   vars:
     - var1: "test"
   vars_files:
-    - secrets.yml
+    - vault_secrets.yml
   tasks:
     - name: "Print variables"
       debug:
         msg:
           - "{{ item }}: {{ query('vars', item)|first }}"
-      loop: "{{ query('varnames', '^vaul.+$') }}" 
+      loop: "{{ query('varnames', '^vault.+$') }}" 

@@ -1,0 +1,9 @@
+# default vars for aws
+aws_region: us-east-1
+aws_profile: sv-aws-ansible
+aws_workshop_destroy: false
+
+aws_tags_default:
+  Owner: "EPAM MsDP"
+  Email: "dannyz@epam.com"
+  Purpose: "Ansible Workshop"
