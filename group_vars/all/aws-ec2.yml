@@ -8,7 +8,7 @@ aws_ec2_tags:
   Name: "ec2-anszible-workshop"
 
 aws_ec2_instance_type: "t2.micro"
-aws_ec2_instance_count: 1
+aws_ec2_instance_count: 4
 aws_ec2_instance_public_ip: yes
 aws_ec2_instance_wait: yes
 aws_ec2_instance_wait_timeout: 500

@@ -1,4 +1,5 @@
-- name: "Playbook for managing aws ec2 instances"
+---
+- name: "Playbook for provisioning aws ec2 instances into a custom vpc"
   hosts: localhost
   connection: local
   gather_facts: no
@@ -21,4 +22,3 @@
       tags: ec2, never
     - role: aws-destroy
       tags: destroy, never
-      #when: aws_workshop_destroy is true
