@@ -7,7 +7,7 @@ A simple ansible playbook for deploying an ec2 instance into a custom aws vpc
 3. Provision VPC infrastructure. `ansible-playbook aws_playbook.yml -t "vpc"`
 
 <p align="center">
-  <img src="image.png">
+  <img src="https://github.com/user-attachments/assets/0547e1c1-e732-4919-863b-9d47f552b5cb">
   <br>
   <em>Figure 1. Role aws-vpc play output</em>
 </p>
@@ -15,7 +15,7 @@ A simple ansible playbook for deploying an ec2 instance into a custom aws vpc
 <br/>
 
 <p align="center">
-  <img src="image-1.png">
+  <img src="https://github.com/user-attachments/assets/0b9c2f2f-47ee-4700-ab5c-0b0773621085">
   <br>
   <em>Figure 2. VPC resource in aws</em>
 </p>
@@ -25,7 +25,7 @@ A simple ansible playbook for deploying an ec2 instance into a custom aws vpc
 <br/>
 
 <p align="center">
-  <img src="image-2.png">
+  <img src="https://github.com/user-attachments/assets/49d61c66-abd4-4a86-856b-058d9c906f46">
   <br>
   <em>Figure 3. Role aws-ec2 play output</em>
 </p>
@@ -33,7 +33,7 @@ A simple ansible playbook for deploying an ec2 instance into a custom aws vpc
 <br/>
 
 <p align="center">
-  <img src="image-3.png">
+  <img src="https://github.com/user-attachments/assets/a52079e2-c5d3-4547-8ec3-57fd1755e8e6">
   <br>
   <em>Figure 4. EC2 resource in aws</em>
 </p>
@@ -43,7 +43,7 @@ A simple ansible playbook for deploying an ec2 instance into a custom aws vpc
 <br/>
 
 <p align="center">
-  <img src="image-4.png">
+  <img src="https://github.com/user-attachments/assets/6acc91ea-27cb-473c-816a-be7ed22d920f">
   <br>
   <em>Figure 4. Resource inventory </em>
 </p>
@@ -53,13 +53,13 @@ A simple ansible playbook for deploying an ec2 instance into a custom aws vpc
 <br/>
 
 <p align="center">
-  <img src="image-5.png">
+  <img src="https://github.com/user-attachments/assets/03f33447-a426-4d34-a96c-fae9fc383644">
   <br>
   <em>Figure 5. Role aws-destroy play output </em>
 </p>
 
 <p align="center">
-  <img src="image-6.png">
+  <img src="https://github.com/user-attachments/assets/61fdc8a6-a9c1-4ed0-9a4d-483f2e6af5f1">
   <br>
   <em>Figure 6. Resource inventory </em>
 </p>
