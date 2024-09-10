@@ -1,8 +1,20 @@
+- name: gather vpc info
+  amazon.aws.ec2_vpc_net_info:
+    filters:
+      "tag:Name": "{{ aws_vpc_name }}"
+  register: aws_vpc_info
+
+- name: gather subet info
+  amazon.aws.ec2_vpc_subnet_info:
+    filters:
+      "tag:Name": "{{ aws_vpc_subnet_tags.Name }}"
+  register: vpc_subnet_info
+
 - name: Create an EC2 Security Group
   amazon.aws.ec2_group:
     name: "{{ aws_ec2_sg_default_name }}"
     description: "{{ aws_ec2_sg_default_description }}"
-    vpc_id: "{{ aws_vpc_info.vpc.id }}"
+    vpc_id: "{{ aws_vpc_info.vpcs[0].id }}"
     rules: "{{ aws_ec2_sg_default_rules }}"
     tags: "{{ aws_tags_default | combine ( aws_ec2_sg_default_tags ) }}"
     state: present

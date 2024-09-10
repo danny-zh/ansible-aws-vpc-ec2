@@ -8,7 +8,7 @@
     wait: "{{ aws_ec2_instance_wait }}"
     wait_timeout: "{{ aws_ec2_instance_wait_timeout }}"
     volumes: "{{ aws_ec2_instance_volumes }}"
-    vpc_subnet_id: "{{ vpc_subnet_info.subnet.id }}"
+    vpc_subnet_id: "{{ vpc_subnet_info.subnets[0].id }}"
     network:
       assign_public_ip: "{{ aws_ec2_instance_public_ip }}"
     tags: "{{ aws_tags_default | combine( aws_ec2_tags )}}"
